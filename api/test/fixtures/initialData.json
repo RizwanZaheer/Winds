@@ -28,5 +28,45 @@
 			"password": "$2a$10$9UaUjg8V01bWLfx1L6FCl.RWMQoNnxayX3Pl528V4XYwWrV/Uw/VW",
 			"name": "Test User"
 		}
+	],
+	"RSS": [
+		{
+			"title": "Featured RSS feed #1",
+			"feedUrl": "http://google.com"
+		},
+		{
+			"title": "Featured RSS feed #2",
+			"feedUrl": "http://bing.com"
+		}
+	],
+	"Article": [
+		{
+			"title": "Featured Article #1",
+			"url": "http://google.com"
+		},
+		{
+			"title": "Featured Article #2",
+			"url": "http://bing.com"
+		}
+	],
+	"Podcast": [
+		{
+			"title": "Featured Podcast #1",
+			"feedUrl": "http://google.com"
+		},
+		{
+			"title": "Featured Podcast #2",
+			"feedUrl": "http://bing.com"
+		}
+	],
+	"Episode": [
+		{
+			"title": "Featured Episode #1",
+			"url": "http://google.com"
+		},
+		{
+			"title": "Featured Episode #2",
+			"url": "http://bing.com"
+		}
 	]
 }

@@ -45,6 +45,7 @@ export async function loadFixture(fixture) {
 			return user;
 		},
 	};
+	
 	const models = require(`../../../test/fixtures/${fixture}.json`);
 
 	for (const modelName in models) {
