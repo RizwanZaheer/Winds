@@ -1,0 +1,52 @@
+[
+	{
+		"RSS": [
+			{
+				"_id": "5b0f306d8e147f10f16aceaf",
+				"title": "Featured RSS feed #1",
+				"feedUrl": "http://google.com"
+			},
+			{
+				"_id": "5b0f306d8e147f10f16aceaa",
+				"title": "Featured RSS feed #2",
+				"feedUrl": "http://bing.com"
+			}
+		],
+		"Article": [
+			{
+				"_id": "5b0f306d8e147f10f16aceab",
+				"title": "Featured Article #1",
+				"url": "http://google.com"
+			},
+			{
+				"_id": "5b0f306d8e147f10f16aceac",
+				"title": "Featured Article #2",
+				"url": "http://bing.com"
+			}
+		],
+		"Podcast": [
+			{
+				"_id": "5b0f306d8e147f10f16acead",
+				"title": "Featured Podcast #1",
+				"feedUrl": "http://google.com"
+			},
+			{
+				"_id": "5b0f306d8e147f10f16aceae",
+				"title": "Featured Podcast #2",
+				"feedUrl": "http://bing.com"
+			}
+		],
+		"Episode": [
+			{
+				"_id": "5b0f306d8e147f10f16aceaa",
+				"title": "Featured Episode #1",
+				"url": "http://google.com"
+			},
+			{
+				"_id": "5b0f306d8e147f10f16aceaq",
+				"title": "Featured Episode #2",
+				"url": "http://bing.com"
+			}
+		]
+	}
+]
