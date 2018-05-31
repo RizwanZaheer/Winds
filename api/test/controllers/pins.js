@@ -1,10 +1,11 @@
 import { expect, request } from 'chai'
 import jwt from 'jsonwebtoken';
-import config from '../../src/config';
 
 import api from '../../src/server';
 import pins from '../../src/controllers/pin';
 import Pin from '../../src/models/pin';
+
+import config from '../../src/config';
 
 import { loadFixture, getMockClient, getMockFeed } from '../../src/utils/test';
 

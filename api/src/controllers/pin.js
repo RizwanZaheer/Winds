@@ -59,10 +59,11 @@ exports.get = (req, res) => {
 		});
 };
 
-exports.post = (req, res) => {
+exports.post = async (req, res) => {
 	const data = Object.assign({}, req.body, { user: req.user.sub }) || {};
 
 	let type;
+	let pin;
 
 	if (data.hasOwnProperty('article')) {
 		type = 'article';
@@ -79,83 +80,43 @@ exports.post = (req, res) => {
 	obj[type] = { $exists: true };
 	obj[type] = data[type];
 
-	async.waterfall(
-		[
-			cb => {
-				Pin.findOne(obj)
-					.then(exists => {
-						if (exists) {
-							return res.sendStatus(409);
-						}
+  	pin = await Pin.findOne(obj);
 
-						cb(null);
-					})
-					.catch(err => {
-						cb(err);
-					});
-			},
-			cb => {
-				Pin.create(data)
-					.then(pin => {
-						cb(null, pin);
-					})
-					.catch(err => {
-						cb(err);
-					});
-			},
-			(pin, cb) => {
-				client
-					.feed('user', pin.user)
-					.addActivity({
-						actor: pin.user,
-						verb: 'pin',
-						object: pin._id,
-						foreign_id: `pins:${pin._id}`,
-						time: pin.createdAt,
-					})
-					.then(() => {
-						cb(null, pin);
-					})
-					.catch(err => {
-						cb(err);
-					});
-			},
-			(pin, cb) => {
-				Pin.findOne({ _id: pin._id })
-					.then(pin => {
-						cb(null, pin);
-					})
-					.catch(err => {
-						cb(err);
-					});
-			},
-			(pin, cb) => {
-				events({
-					user: pin.user._id,
-					email: pin.user.email.toLowerCase(),
-					engagement: {
-						label: 'pin',
-						content: {
-							foreign_id: `${type}:${pin[type]._id}`,
-						},
+	if (pin) {
+		return res.sendStatus(409);
+	} else {
+		try {
+			pin = await Pin.create(data);
+			pin = await Pin.findById(pin._id);
+
+			console.log(pin);
+
+			await client
+				.feed('user', pin.user)
+				.addActivity({
+					actor: pin.user,
+					verb: 'pin',
+					object: pin._id,
+					foreign_id: `pins:${pin._id}`,
+					time: pin.createdAt,
+				});
+
+			await events({
+				user: pin.user._id,
+				email: pin.user.email.toLowerCase(),
+				engagement: {
+					label: 'pin',
+					content: {
+						foreign_id: `${type}:${pin[type]._id}`,
 					},
-				})
-					.then(() => {
-						cb(null, pin);
-					})
-					.catch(err => {
-						cb(err);
-					});
-			},
-		],
-		(err, pin) => {
-			if (err) {
-				logger.error(err);
-				return res.status(422).send(err);
-			}
+				},
+			});
+
 			res.json(pin);
-		},
-	);
+		} catch (e) {
+			console.log(e);
+		}
+	}
 };
 
 exports.delete = (req, res) => {
