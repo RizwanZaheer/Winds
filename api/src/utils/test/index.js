@@ -18,7 +18,6 @@ function setupMocks() {
 			userId: id,
 			id: group + ':' + id,
 			follow: sinon.spy(sinon.stub().returns(Promise.resolve())),
-			addActivity: sinon.spy(sinon.stub().returns(Promise.resolve())),
 		};
 		mockFeeds[group + ':' + id] = mock;
 		return mock;
@@ -45,7 +44,6 @@ export async function loadFixture(fixture) {
 			return user;
 		},
 	};
-	
 	const models = require(`../../../test/fixtures/${fixture}.json`);
 
 	for (const modelName in models) {
