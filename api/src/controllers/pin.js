@@ -22,7 +22,7 @@ exports.list = async (req, res) => {
 
 		res.json(await Pin.find(obj));
 	} else {
-		res.json(Pin.apiQuery(req.query));
+		res.json(await Pin.apiQuery(req.query));
 	}
 };
 
