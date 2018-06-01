@@ -34,14 +34,12 @@ export function getMockClient() {
 
 export async function loadFixture(fixture) {
 	const filters = {
-		User: async (user) => {
-			//XXX: cloning loaded json to enable filtering without thinking about module cache
-			user = Object.assign({}, user);
-
+		User: async user => {
 			const salt = await bcrypt.genSalt(10);
 			const hash = await bcrypt.hash(user.password, salt);
 			user.password = hash;
 			return user;
+<<<<<<< HEAD
 		},
 	};
 	const models = require(`../../../test/fixtures/${fixture}.json`);
@@ -50,6 +48,28 @@ export async function loadFixture(fixture) {
 		const model = mongoose.model(modelName);
 		const filter = filters[modelName] || ((x) => Promise.resolve(x));
 		const filteredData = await Promise.all(models[modelName].map(filter));
+=======
+		}
+	};
+	const batch = require(`../../../test/fixtures/${fixture}.json`);
+
+	for (const models of batch) {
+		for (const modelName in models) {
+			const model = mongoose.model(modelName);
+
+			const fixedModels = models[modelName].map(fix => {
+				//XXX: cloning loaded json to enable filtering without thinking about module cache
+				const m = Object.assign({}, fix);
+				const id = m.id || m._id;
+				if (id) {
+					m._id = mongoose.Types.ObjectId(id);
+				}
+				return m;
+			});
+
+			const filter = filters[modelName] || (x => Promise.resolve(x));
+			const filteredData = await Promise.all(fixedModels.map(filter));
+>>>>>>> 0ef0348b7992d2002b99f9bcc3f6b659c79fd97d
 
 		await model.collection.insertMany(filteredData);
 	}
