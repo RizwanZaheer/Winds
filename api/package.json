@@ -7,12 +7,27 @@
 		"build": "./build.sh",
 		"prettier": "prettier --config .prettierrc --write \"src/**/*.js\"",
 		"test":
-			"NODE_ENV=test node_modules/mocha/bin/_mocha --timeout 15000 --require test-entry.js \"test/**/*.js\""
+			"NODE_ENV=test node_modules/mocha/bin/_mocha --timeout 15000 --require test-entry.js \"test/**/*.js\"",
+		"test_deep":
+			"NODE_ENV=test node --stack_trace_limit=100 -r trace -r clarify node_modules/mocha/bin/_mocha --timeout 15000 --require test-entry.js \"test/**/*.js\""
 	},
 	"bin": {
 		"winds": "src/commands/winds.js"
 	},
-	"author": "Winds Team <winds@getstream.io>",
+	"author": [
+		{
+			"name": "Nick Parsons",
+			"email": "nick@getstream.io"
+		},
+		{
+			"name": "Ken Hoff",
+			"email": "ken@getstream.io"
+		},
+		{
+			"name": "Thierry Schellenbach",
+			"email": "thierry@getstream.io"
+		}
+	],
 	"license": "BSD-3-Clause",
 	"keywords": ["Winds", "RSS", "RSS Reader", "Podcast", "Podcast Player"],
 	"dependencies": {
@@ -24,6 +39,7 @@
 		"body-parser": "^1.18.3",
 		"bull": "^3.4.2",
 		"bull-arena": "^2.4.3",
+		"clarify": "^2.1.0",
 		"compression": "^1.7.2",
 		"cors": "^2.8.4",
 		"dotenv": "^5.0.1",
@@ -41,6 +57,7 @@
 		"iconv-js": "^0.3.5",
 		"jsonwebtoken": "^8.2.1",
 		"lodash": "^4.17.10",
+		"logform": "^1.7.0",
 		"md5": "^2.2.1",
 		"moment": "^2.22.1",
 		"mongodb": "^3.1.0-beta4",
@@ -68,11 +85,12 @@
 		"serve-favicon": "^2.5.0",
 		"stream-analytics": "^2.7.0",
 		"strip": "^3.0.0",
+		"trace": "^3.1.0",
 		"url-regex": "^4.1.1",
 		"uuid": "^3.2.1",
 		"valid-url": "^1.0.9",
 		"validator": "^10.2.0",
-		"winston": "^3.0.0-rc3",
+		"winston": "^3.0.0-rc6",
 		"yargs": "^11.0.0",
 		"zlib": "^1.0.5"
 	},
